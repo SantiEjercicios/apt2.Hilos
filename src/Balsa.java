@@ -24,43 +24,34 @@ public class Balsa extends Thread {
 
                     Pasajero p = barco.obtenerPasajero();
 
-                    if (p == null) {
-
-                        break;
-                    }
+                    if (p == null) break;
                     ocupantes.add(p);
                 }
 
-
                 if (ocupantes.isEmpty()) {
-
-                    System.out.println(getName() + " finaliza su servicio (No hay más pasajeros).");
+                    System.out.println(getName() + " termina servicio.");
                     break;
                 }
-
 
                 reportarLlegada();
 
 
-                long tiempoEsperaMs = (long) (tiempoRescate * 100);
+                long tiempoEsperaMs = (long) (tiempoRescate * 1000);
                 Thread.sleep(tiempoEsperaMs);
-
 
                 ocupantes.clear();
             }
         } catch (InterruptedException e) {
-            System.out.println(getName() + " ha sido interrumpida.");
+            System.out.println(getName() + " interrumpida.");
         }
     }
 
     private void reportarLlegada() {
         StringBuilder sb = new StringBuilder();
-
-
         sb.append(">>> Balsa ").append(getName())
-                .append(" (Tiempo rescate: ").append(tiempoRescate).append("s)"+"\n");
-
-        sb.append("    Total rescatados en este viaje: ").append(ocupantes.size()).append("\n");
+                .append(" [Tiempo ciclo: ").append(tiempoRescate).append("s]")
+                .append(" reporta rescate:\n");
+        sb.append("    Total rescatados: ").append(ocupantes.size()).append("\n");
         sb.append("    Pasajeros: ");
 
         for (Pasajero p : ocupantes) {
